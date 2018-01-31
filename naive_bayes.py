@@ -3,16 +3,13 @@
 
 ''' This function reads in a file and returns a 
 	set of all the tokens. It ignores the subject line
-
 	If the email had the following content:
-
 	Subject: Get rid of your student loans
 	Hi there,
 	If you work for us, we will give you money
 	to repay your student loans. You will be
 	debt free!
 	FakePerson_22393
-
 	This function would return to you
 	set(['', 'work', 'give', 'money', 'rid', 'your', 'there,',
 		'for', 'Get', 'to', 'Hi', 'you', 'be', 'we', 'student',
@@ -40,8 +37,9 @@ def main():
 	itemsTest = os.listdir('.' + pathTest)
 	hamTable = dict()
 	spamTable = dict()
-	proHam = math.log10(len(itemsHam) / (len(itemsHam) + len(itemsSpam)))
-	proSpam = math.log10(1 - (len(itemsHam) / (len(itemsHam) + len(itemsSpam))))
+	proHam = len(itemsHam) / (len(itemsHam) + len(itemsSpam))
+	proSpam = 1 - (len(itemsHam) / (len(itemsHam) + len(itemsSpam)))
+	print(proHam, proSpam)
 	for item in itemsHam:
 		set = token_set('.' + pathTrainHam + item)
 		for word in set:
@@ -72,12 +70,9 @@ def main():
 			sumSpam += math.log10(((magSpam + 1) / (len(itemsSpam) + 2)))
 			sumHam += math.log10(((magHam + 1) / (len(itemsHam) + 2)))
 		if proSpam + sumSpam > proHam + sumHam:
-			print(testFile + " Spam")
+			print(testFile + " spam")
 		else:
-			print(testFile + " Ham")
-	pass
+			print(testFile + " ham")
 
 if __name__ == '__main__':
     main()
-
-
